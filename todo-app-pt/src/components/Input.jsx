@@ -1,15 +1,15 @@
-import React from "react";
-import { useState } from "react";
+import { React, useState } from "react";
 import uuid from "react-uuid";
 
-function InputForm({ todos, setTodos }) {
+function Input({ todos, setTodos }) {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+
   return (
     <div>
       <form
-        onSubmit={(event) => {
-          event.preventDefault();
+        onSubmit={(e) => {
+          e.preventDefault();
           const newTodo = {
             id: uuid(),
             title,
@@ -17,26 +17,26 @@ function InputForm({ todos, setTodos }) {
             isDone: false,
           };
           setTodos([...todos, newTodo]);
+          setTitle("");
+          setContents("");
         }}
       >
         <input
-          type="text"
           value={title}
-          onChange={(event) => {
-            setTitle(event.target.value);
+          onChange={(e) => {
+            setTitle(e.target.value);
           }}
         />
         <input
-          type="text"
           value={contents}
-          onChange={(event) => {
-            setContents(event.target.value);
+          onChange={(e) => {
+            setContents(e.target.value);
           }}
         />
-        <button>입력</button>
+        <button type="submit">입력</button>
       </form>
     </div>
   );
 }
 
-export default InputForm;
+export default Input;
