@@ -22,22 +22,27 @@ const Auth = () => {
       setPassword(value);
     }
   };
+  // onChange={(e)=>setEmail(e.target.value)} ???
 
   const signUp = async (event) => {
     event.preventDefault();
     try {
+      //이메일로 회원가입(파라미터는 auth객체, 이메일, 패스워드)
+      //auth객체는 firebase에 만들어놨잖슴
       const userCredential = await createUserWithEmailAndPassword(
+        //비동기 함수에 await
         auth,
         email,
         password
       );
     } catch (error) {
-      console.error(error);
+      console.error("회원가입 실패입니다. 다시 입력해주세요.");
     }
   };
 
   const signIn = async (event) => {
     event.preventDefault();
+    //이메일로 로그인
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -45,10 +50,11 @@ const Auth = () => {
         password
       );
     } catch (error) {
-      console.error(error);
+      console.error("로그인 실패입니다. 다시 시도해주세요.");
     }
   };
 
+  //로그아웃
   const logOut = async (event) => {
     event.preventDefault();
 

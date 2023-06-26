@@ -1,15 +1,20 @@
 // components/TodoItem.js
-import { doc, collection, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import React from "react";
 import { db } from "./firebase";
 
 const TodoItem = ({ todo, setTodos }) => {
+  //데이터 수정하기
   const updateTodo = async (event) => {
+    //이 로직이 있어야 firebase에서도 업뎃이 되는겨
     const todoRef = doc(db, "todos", todo.id);
+    // console.log(todoRef);
     await updateDoc(todoRef, { ...todo, isDone: !todo.isDone });
 
+    //취소면 완료 완료면 취소
     setTodos((prev) => {
       return prev.map((element) => {
+        // console.log(element.id, element.text);
         if (element.id === todo.id) {
           return { ...element, isDone: !element.isDone };
         } else {
